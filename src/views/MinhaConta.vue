@@ -595,13 +595,23 @@ export default {
         if (plano) {
             this.planoEscolhido = plano.nome
             this.valor = plano.preco
+        } else {
+            this.planoEscolhido = ''
+            this.valor =   ''
         }
         let dadosPagamento = localStorage.getItem('dadosPagamento')
         dadosPagamento = JSON.parse(dadosPagamento)
         if (dadosPagamento) {
             this.dadosPagamento = dadosPagamento
+        } else {
+            this.dadosPagamento = {
+                plano: 'Mensal',
+                vencimento: '18/12/2023',
+                valor:'25.90',
+                metodoEscolhido: 'Crédito',
+                finalCartao: '1308'
+            }
         }
-        console.log(1)
         let user = localStorage.getItem('user')
         user = JSON.parse(user)
         if (user) {

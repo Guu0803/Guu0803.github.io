@@ -73,7 +73,6 @@ export default {
     background-size: cover;
     cursor: pointer;
     position: relative;
-
 }
 
 .titulo-banner {

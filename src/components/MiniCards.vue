@@ -152,7 +152,6 @@ export default {
     align-items: center;
     height: 51vh;
     transition: 300ms ease-in-out;
-
 }
 
 .div-teste {
@@ -166,6 +165,7 @@ export default {
     box-shadow: 1.5vh 1.5vh 1.5vh black, -0.5vh -0.5vh 1vh #343434;
     cursor: pointer;
     transition: 300ms ease-in-out;
+
 }
 
 .card-scale:hover {

@@ -184,7 +184,7 @@ export default {
         cadastrarUsuario() {
             this.loading = true
             if (this.username && this.email && this.password && this.senhaNovamente) {
-                if (this.username.length > 6) {
+                if (this.username.length >= 6) {
                     if (this.password.length >= 8) {
                         if (this.password == this.senhaNovamente) {
                             let user = {

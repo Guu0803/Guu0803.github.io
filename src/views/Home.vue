@@ -5,31 +5,32 @@
             <span class="material-icons botao-volta" v-on:click="passarAnterior()">
                 chevron_left
             </span>
-
-            <div v-for="(banner, index) in listaBanners" :key="banner.id">
-                <banner :nome="banner.nome" :imagem="banner.imagem" :nota="banner.nota" :imagemBanner="banner.imagemBanner"
-                    :categoria1="banner.categoria1" :categoria2="banner.categoria2" :categoria3="banner.categoria3"
-                    :resumoSinopse="banner.resumoSinopse" :duracaoFilme="banner.duracaoFilme"
-                    :faixaEtaria="banner.faixaEtaria" :tipoDoTitulo="banner.tipoDoTitulo" :trailer="banner.trailer"
-                    :direcao="banner.direcao" :elenco="banner.elenco" :roteiro="banner.roteiro"
-                    :sinopseCompleta="banner.sinopseCompleta" :wallpaper="banner.wallpaper" v-if="index == pagina" />
+            <div id="banner-container">
+                <div v-for="banner in listaBanners" :key="banner.id">
+                    <banner :nome="banner.nome" :imagem="banner.imagem" :nota="banner.nota"
+                        :imagemBanner="banner.imagemBanner" :categoria1="banner.categoria1" :categoria2="banner.categoria2"
+                        :categoria3="banner.categoria3" :resumoSinopse="banner.resumoSinopse"
+                        :duracaoFilme="banner.duracaoFilme" :faixaEtaria="banner.faixaEtaria"
+                        :tipoDoTitulo="banner.tipoDoTitulo" :trailer="banner.trailer" :direcao="banner.direcao"
+                        :elenco="banner.elenco" :roteiro="banner.roteiro" :sinopseCompleta="banner.sinopseCompleta"
+                        :wallpaper="banner.wallpaper" />
+                </div>
             </div>
-
             <span class="material-icons botao-proximo" v-on:click="passarFrente()">
                 chevron_right
             </span>
 
             <div class="conteiner-dots">
-                <span class="material-icons dot" v-on:click="dotAlterar1()" :style="dotSelecionado1()">
+                <span class="material-icons dot" v-on:click="dotAlterar('0')" :style="dotSelecionado('0')">
                     fiber_manual_record
                 </span>
-                <span class="material-icons dot" v-on:click="dotAlterar2()" :style="dotSelecionado2()">
+                <span class="material-icons dot" v-on:click="dotAlterar('1')" :style="dotSelecionado('1')">
                     fiber_manual_record
                 </span>
-                <span class="material-icons dot" v-on:click="dotAlterar3()" :style="dotSelecionado3()">
+                <span class="material-icons dot" v-on:click="dotAlterar('2')" :style="dotSelecionado('2')">
                     fiber_manual_record
                 </span>
-                <span class="material-icons dot" v-on:click="dotAlterar4()" :style="dotSelecionado4()">
+                <span class="material-icons dot" v-on:click="dotAlterar('3')" :style="dotSelecionado('3')">
                     fiber_manual_record
                 </span>
             </div>
@@ -44,36 +45,36 @@
         </div>
         <div class="separacao">
         </div>
+
         <div class="conteiner-cards">
-            <div class="fileira-cards">
-                <span class="material-icons seta" v-on:click="voltarSeries()">
-                    keyboard_arrow_left
-                </span>
-                <div v-for="serie in  recomendacaoListaSeries" :key="serie.id" class="card">
-                    <miniCards :nome="serie.nome" :imagem="serie.imagem" :nota="serie.nota" :scale="true"
-                        :categoria1="serie.categoria1" :categoria2="serie.categoria2" :thumbnail="serie.thumbnail"
-                        :categoria3="serie.categoria3" :resumoSinopse="serie.resumoSinopse"
-                        :duracaoFilme="serie.duracaoFilme" :faixaEtaria="serie.faixaEtaria"
-                        :tipoDoTitulo="serie.tipoDoTitulo" :trailer="serie.trailer" :direcao="serie.direcao"
-                        :elenco="serie.elenco" :roteiro="serie.roteiro" :sinopseCompleta="serie.sinopseCompleta"
-                        :wallpaper="serie.wallpaper" />
+            <span class="material-icons seta-esquerda" v-on:click="voltarMiniCards('serie')">
+                keyboard_arrow_left
+            </span>
+            <div class="row">
+                <div id="serie-carrosel">
+                    <div v-for="serie in  recomendacaoListaSeries" :key="serie.id" class="card">
+                        <miniCards :nome="serie.nome" :imagem="serie.imagem" :nota="serie.nota" :scale="true"
+                            :categoria1="serie.categoria1" :categoria2="serie.categoria2" :thumbnail="serie.thumbnail"
+                            :categoria3="serie.categoria3" :resumoSinopse="serie.resumoSinopse"
+                            :duracaoFilme="serie.duracaoFilme" :faixaEtaria="serie.faixaEtaria"
+                            :tipoDoTitulo="serie.tipoDoTitulo" :trailer="serie.trailer" :direcao="serie.direcao"
+                            :elenco="serie.elenco" :roteiro="serie.roteiro" :sinopseCompleta="serie.sinopseCompleta"
+                            :wallpaper="serie.wallpaper" />
+                    </div>
+                    <div v-for="serie in  listaSeries" :key="serie.id" class="card-mobile">
+                        <miniCards :nome="serie.nome" :imagem="serie.imagem" :nota="serie.nota" :scale="true"
+                            :categoria1="serie.categoria1" :categoria2="serie.categoria2" :thumbnail="serie.thumbnail"
+                            :categoria3="serie.categoria3" :resumoSinopse="serie.resumoSinopse"
+                            :duracaoFilme="serie.duracaoFilme" :faixaEtaria="serie.faixaEtaria"
+                            :tipoDoTitulo="serie.tipoDoTitulo" :trailer="serie.trailer" :direcao="serie.direcao"
+                            :elenco="serie.elenco" :roteiro="serie.roteiro" :sinopseCompleta="serie.sinopseCompleta"
+                            :wallpaper="serie.wallpaper" />
+                    </div>
                 </div>
-                <div v-for="serie in  listaSeries" :key="serie.id" class="card-mobile">
-                    <miniCards :nome="serie.nome" :imagem="serie.imagem" :nota="serie.nota" :scale="true"
-                        :categoria1="serie.categoria1" :categoria2="serie.categoria2" :thumbnail="serie.thumbnail"
-                        :categoria3="serie.categoria3" :resumoSinopse="serie.resumoSinopse"
-                        :duracaoFilme="serie.duracaoFilme" :faixaEtaria="serie.faixaEtaria"
-                        :tipoDoTitulo="serie.tipoDoTitulo" :trailer="serie.trailer" :direcao="serie.direcao"
-                        :elenco="serie.elenco" :roteiro="serie.roteiro" :sinopseCompleta="serie.sinopseCompleta"
-                        :wallpaper="serie.wallpaper" />
-                </div>
-                <span class="material-icons seta" v-on:click="passarSeries()">
-                    keyboard_arrow_right
-                </span>
             </div>
-
-
-
+            <span class="material-icons seta-direita" v-on:click="passarMiniCards('serie')">
+                keyboard_arrow_right
+            </span>
         </div>
         <!-- Fim -->
 
@@ -83,37 +84,27 @@
         </div>
         <div class="separacao">
         </div>
-        <div class="conteiner-cards">
-            <div class="fileira-cards-em-alta">
-                <span class="material-icons seta" v-on:click="voltarEmAlta()">
-                    keyboard_arrow_left
-                </span>
-                <div v-for="destaques in recomendacaoListaEmAlta" :key="destaques.id" class="card">
-                    <cards :nome="destaques.nome" :imagem="destaques.imagem" :nota="destaques.nota" :scale="true"
-                        :categoria1="destaques.categoria1" :categoria2="destaques.categoria2"
-                        :thumbnail="destaques.thumbnail" :categoria3="destaques.categoria3"
-                        :resumoSinopse="destaques.resumoSinopse" :duracaoFilme="destaques.duracaoFilme"
-                        :faixaEtaria="destaques.faixaEtaria" :tipoDoTitulo="destaques.tipoDoTitulo"
-                        :trailer="destaques.trailer" :direcao="destaques.direcao" :elenco="destaques.elenco"
-                        :roteiro="destaques.roteiro" :sinopseCompleta="destaques.sinopseCompleta"
-                        :wallpaper="destaques.wallpaper" />
+        <div class="conteiner-cards-em-alta">
+            <span class="material-icons seta-esquerda" v-on:click="voltarEmAlta()">
+                keyboard_arrow_left
+            </span>
+            <div class="row-em-alta">
+                <div id="em-alta-carrosel">
+                    <div v-for="destaques in listaEmAlta" :key="destaques.id" >
+                        <cards :nome="destaques.nome" :imagem="destaques.imagem" :nota="destaques.nota" :scale="true"
+                            :categoria1="destaques.categoria1" :categoria2="destaques.categoria2"
+                            :thumbnail="destaques.thumbnail" :categoria3="destaques.categoria3"
+                            :resumoSinopse="destaques.resumoSinopse" :duracaoFilme="destaques.duracaoFilme"
+                            :faixaEtaria="destaques.faixaEtaria" :tipoDoTitulo="destaques.tipoDoTitulo"
+                            :trailer="destaques.trailer" :direcao="destaques.direcao" :elenco="destaques.elenco"
+                            :roteiro="destaques.roteiro" :sinopseCompleta="destaques.sinopseCompleta"
+                            :wallpaper="destaques.wallpaper" />
+                    </div>
                 </div>
-                <div v-for="destaques in listaEmAlta" :key="destaques.id" class="card-mobile">
-                    <cards :nome="destaques.nome" :imagem="destaques.imagem" :nota="destaques.nota" :scale="true"
-                        :categoria1="destaques.categoria1" :categoria2="destaques.categoria2"
-                        :thumbnail="destaques.thumbnail" :categoria3="destaques.categoria3"
-                        :resumoSinopse="destaques.resumoSinopse" :duracaoFilme="destaques.duracaoFilme"
-                        :faixaEtaria="destaques.faixaEtaria" :tipoDoTitulo="destaques.tipoDoTitulo"
-                        :trailer="destaques.trailer" :direcao="destaques.direcao" :elenco="destaques.elenco"
-                        :roteiro="destaques.roteiro" :sinopseCompleta="destaques.sinopseCompleta"
-                        :wallpaper="destaques.wallpaper" />
-                </div>
-                <span class="material-icons seta" v-on:click="passarEmAlta()">
-                    keyboard_arrow_right
-                </span>
             </div>
-
-
+            <span class="material-icons seta-direita" v-on:click="passarEmAlta()">
+                keyboard_arrow_right
+            </span>
         </div>
         <!-- Fim -->
 
@@ -126,32 +117,34 @@
         <div class="separacao">
         </div>
         <div class="conteiner-cards">
-            <div class="fileira-cards">
-                <span class="material-icons seta" v-on:click="voltarFilmes()">
-                    keyboard_arrow_left
-                </span>
-                <div v-for="filme in recomendacaoListaFilmes" :key="filme.id" class="card">
-                    <miniCards :nome="filme.nome" :imagem="filme.imagem" :nota="filme.nota" :scale="true"
-                        :categoria1="filme.categoria1" :categoria2="filme.categoria2" :thumbnail="filme.thumbnail"
-                        :categoria3="filme.categoria3" :resumoSinopse="filme.resumoSinopse"
-                        :duracaoFilme="filme.duracaoFilme" :faixaEtaria="filme.faixaEtaria"
-                        :tipoDoTitulo="filme.tipoDoTitulo" :trailer="filme.trailer" :direcao="filme.direcao"
-                        :elenco="filme.elenco" :roteiro="filme.roteiro" :sinopseCompleta="filme.sinopseCompleta"
-                        :wallpaper="filme.wallpaper" />
+            <span class="material-icons seta-esquerda" v-on:click="voltarMiniCards('filme')">
+                keyboard_arrow_left
+            </span>
+            <div class="row">
+                <div id="filme-carrosel">
+                    <div v-for="filme in recomendacaoListaFilmes" :key="filme.id" class="card">
+                        <miniCards :nome="filme.nome" :imagem="filme.imagem" :nota="filme.nota" :scale="true"
+                            :categoria1="filme.categoria1" :categoria2="filme.categoria2" :thumbnail="filme.thumbnail"
+                            :categoria3="filme.categoria3" :resumoSinopse="filme.resumoSinopse"
+                            :duracaoFilme="filme.duracaoFilme" :faixaEtaria="filme.faixaEtaria"
+                            :tipoDoTitulo="filme.tipoDoTitulo" :trailer="filme.trailer" :direcao="filme.direcao"
+                            :elenco="filme.elenco" :roteiro="filme.roteiro" :sinopseCompleta="filme.sinopseCompleta"
+                            :wallpaper="filme.wallpaper" />
+                    </div>
+                    <div v-for="filme in listaFilmes" :key="filme.id" class="card-mobile">
+                        <miniCards :nome="filme.nome" :imagem="filme.imagem" :nota="filme.nota" :scale="true"
+                            :categoria1="filme.categoria1" :categoria2="filme.categoria2" :thumbnail="filme.thumbnail"
+                            :categoria3="filme.categoria3" :resumoSinopse="filme.resumoSinopse"
+                            :duracaoFilme="filme.duracaoFilme" :faixaEtaria="filme.faixaEtaria"
+                            :tipoDoTitulo="filme.tipoDoTitulo" :trailer="filme.trailer" :direcao="filme.direcao"
+                            :elenco="filme.elenco" :roteiro="filme.roteiro" :sinopseCompleta="filme.sinopseCompleta"
+                            :wallpaper="filme.wallpaper" />
+                    </div>
                 </div>
-                <div v-for="filme in listaFilmes" :key="filme.id" class="card-mobile">
-                    <miniCards :nome="filme.nome" :imagem="filme.imagem" :nota="filme.nota" :scale="true"
-                        :categoria1="filme.categoria1" :categoria2="filme.categoria2" :thumbnail="filme.thumbnail"
-                        :categoria3="filme.categoria3" :resumoSinopse="filme.resumoSinopse"
-                        :duracaoFilme="filme.duracaoFilme" :faixaEtaria="filme.faixaEtaria"
-                        :tipoDoTitulo="filme.tipoDoTitulo" :trailer="filme.trailer" :direcao="filme.direcao"
-                        :elenco="filme.elenco" :roteiro="filme.roteiro" :sinopseCompleta="filme.sinopseCompleta"
-                        :wallpaper="filme.wallpaper" />
-                </div>
-                <span class="material-icons seta" v-on:click="passarFilmes()">
-                    keyboard_arrow_right
-                </span>
             </div>
+            <span class="material-icons seta-direita" v-on:click="passarMiniCards('filme')">
+                keyboard_arrow_right
+            </span>
         </div>
         <!-- Fim -->
 
@@ -164,29 +157,37 @@
         <div class="separacao">
         </div>
         <div class="conteiner-cards">
-
-            <div class="fileira-cards">
-                <span class="material-icons seta" v-on:click="voltarAnimes()">
-                    keyboard_arrow_left
-                </span>
-                <div v-for="banner in recomendacaoListaAnimes" :key="banner.id">
-                    <miniCards :nome="banner.nome" :imagem="banner.imagem" :nota="banner.nota" :scale="true"
-                        :categoria1="banner.categoria1" :categoria2="banner.categoria2" :thumbnail="banner.thumbnail"
-                        :categoria3="banner.categoria3" :resumoSinopse="banner.resumoSinopse"
-                        :duracaoFilme="banner.duracaoFilme" :faixaEtaria="banner.faixaEtaria"
-                        :tipoDoTitulo="banner.tipoDoTitulo" :trailer="banner.trailer" :direcao="banner.direcao"
-                        :elenco="banner.elenco" :roteiro="banner.roteiro" :sinopseCompleta="banner.sinopseCompleta"
-                        :wallpaper="banner.wallpaper" />
+            <span class="material-icons seta-esquerda" v-on:click="voltarMiniCards('anime')">
+                keyboard_arrow_left
+            </span>
+            <div class="row">
+                <div id="anime-carrosel">
+                    <div v-for="banner in recomendacaoListaAnimes" :key="banner.id">
+                        <miniCards :nome="banner.nome" :imagem="banner.imagem" :nota="banner.nota" :scale="true"
+                            :categoria1="banner.categoria1" :categoria2="banner.categoria2" :thumbnail="banner.thumbnail"
+                            :categoria3="banner.categoria3" :resumoSinopse="banner.resumoSinopse"
+                            :duracaoFilme="banner.duracaoFilme" :faixaEtaria="banner.faixaEtaria"
+                            :tipoDoTitulo="banner.tipoDoTitulo" :trailer="banner.trailer" :direcao="banner.direcao"
+                            :elenco="banner.elenco" :roteiro="banner.roteiro" :sinopseCompleta="banner.sinopseCompleta"
+                            :wallpaper="banner.wallpaper" />
+                    </div>
+                    <div v-for="banner in recomendacaoListaAnimes" :key="banner.id" class="card-mobile">
+                        <miniCards :nome="banner.nome" :imagem="banner.imagem" :nota="banner.nota" :scale="true"
+                            :categoria1="banner.categoria1" :categoria2="banner.categoria2" :thumbnail="banner.thumbnail"
+                            :categoria3="banner.categoria3" :resumoSinopse="banner.resumoSinopse"
+                            :duracaoFilme="banner.duracaoFilme" :faixaEtaria="banner.faixaEtaria"
+                            :tipoDoTitulo="banner.tipoDoTitulo" :trailer="banner.trailer" :direcao="banner.direcao"
+                            :elenco="banner.elenco" :roteiro="banner.roteiro" :sinopseCompleta="banner.sinopseCompleta"
+                            :wallpaper="banner.wallpaper" />
+                    </div>
                 </div>
-                <span class="material-icons seta" v-on:click="passarAnimes()">
-                    keyboard_arrow_right
-                </span>
             </div>
-
+            <span class="material-icons seta-direita" v-on:click="passarMiniCards('anime')">
+                keyboard_arrow_right
+            </span>
         </div>
         <!-- FIm -->
         <alerta v-if="aviso == true" />
-
     </div>
 </template>
 <script>
@@ -215,137 +216,91 @@ export default {
             recomendacaoIndexAnimes: 0,
             recomendacaoIndexFilmes: 0,
             recomendacaoIndexEmAlta: 0,
-            aviso: false
+            aviso: false,
+            posiçãoInicial: 0,
+            posiçãoInicialEmAlta:0
         }
     },
     computed: {
         recomendacaoListaSeries() {
-            return this.listaSeries.slice(this.recomendacaoIndexSeries, this.recomendacaoIndexSeries + 6)
+            return this.listaSeries.slice(0, 12)
         },
         recomendacaoListaAnimes() {
-            return this.listaAnimes.slice(this.recomendacaoIndexAnimes, this.recomendacaoIndexAnimes + 6)
+            return this.listaAnimes.slice(0,12)
         },
         recomendacaoListaFilmes() {
-            return this.listaFilmes.slice(this.recomendacaoIndexFilmes, this.recomendacaoIndexFilmes + 6)
+            return this.listaFilmes.slice(0,12)
         },
         recomendacaoListaEmAlta() {
-            return this.listaEmAlta.slice(this.recomendacaoIndexEmAlta, this.recomendacaoIndexEmAlta + 3)
+            return this.listaEmAlta.slice(0,12)
         }
     },
     methods: {
-        dotSelecionado1() {
-            if (this.pagina == 0) {
+        dotSelecionado(pagina) {
+            if (this.pagina == pagina) {
                 return "color: #e8e8e8;"
             }
         },
-        dotSelecionado2() {
-            if (this.pagina == 1) {
-                return "color: #e8e8e8;"
-            }
-        },
-        dotSelecionado3() {
-            if (this.pagina == 2) {
-                return "color: #e8e8e8;"
-            }
-        },
-        dotSelecionado4() {
-            if (this.pagina == 3) {
-                return "color: #e8e8e8;"
-            }
-        },
-        dotAlterar1() {
-            if (this.pagina != 0) {
-                this.pagina = 0
+        dotAlterar(pagina) {
+            this.pagina = pagina
+            let proximo = document.getElementById('banner-container')
+            let position = -97.5 * pagina
+            proximo.style.left = position + 'vw'
 
-            }
-        },
-        dotAlterar2() {
-            if (this.pagina != 1) {
-                this.pagina = 1
-            }
-        },
-        dotAlterar3() {
-            if (this.pagina != 2) {
-                this.pagina = 2
-            }
-        },
-        dotAlterar4() {
-            if (this.pagina != 3) {
-                this.pagina = 3
-            }
         },
         passarFrente() {
             if (this.pagina >= 3) {
                 this.pagina = 0
+                let proximo = document.getElementById('banner-container')
+                proximo.style.left = '0'
             } else {
                 this.pagina++
+                let proximo = document.getElementById('banner-container')
+                let position = -97.5 * this.pagina
+                proximo.style.left = position + 'vw'
             }
         },
         passarAnterior() {
             if (this.pagina <= 0) {
                 this.pagina = 3
+                let anterior = document.getElementById('banner-container')
+                anterior.style.left = '-292.5vw'
             } else {
                 this.pagina--
+                let anterior = document.getElementById('banner-container')
+                let position = -97.5 * this.pagina
+                anterior.style.left = position + 'vw'
             }
         },
-        passarSeries() {
-            if (this.recomendacaoIndexSeries < 6) {
-                this.recomendacaoIndexSeries = this.recomendacaoIndexSeries + 6
-            } else {
-                this.recomendacaoIndexSeries = 0
-            }
-        },
-        voltarSeries() {
-            if (this.recomendacaoIndexSeries < 0) {
-                this.recomendacaoIndexSeries = this.recomendacaoIndexSeries - 6
-            } else {
-                this.recomendacaoIndexSeries = 6
-            }
-        },
-        passarFilmes() {
-            if (this.recomendacaoIndexFilmes < 6) {
-                this.recomendacaoIndexFilmes = this.recomendacaoIndexFilmes + 6
-            } else {
-                this.recomendacaoIndexFilmes = 0
-            }
-        },
-        voltarFilmes() {
-            if (this.recomendacaoIndexFilmes < 0) {
-                this.recomendacaoIndexFilmes = this.recomendacaoIndexFilmes - 6
-            } else {
-                this.recomendacaoIndexFilmes = 6
-            }
-        },
-        passarEmAlta() {
-            if (this.recomendacaoIndexEmAlta < 3) {
-                this.recomendacaoIndexEmAlta = this.recomendacaoIndexEmAlta + 3
-            } else {
-                this.recomendacaoIndexEmAlta = 0
-            }
-        },
-        voltarEmAlta() {
-            if (this.recomendacaoIndexEmAlta < 0) {
-                this.recomendacaoIndexEmAlta = this.recomendacaoIndexEmAlta - 3
-            } else {
-                this.recomendacaoIndexEmAlta = 3
-            }
-        },
-        passarAnimes() {
-            if (this.recomendacaoIndexAnimes < 6) {
-                this.recomendacaoIndexAnimes = this.recomendacaoIndexAnimes + 6
-            } else {
-                this.recomendacaoIndexAnimes = 0
-            }
-        },
-        voltarAnimes() {
-            if (this.recomendacaoIndexAnimes < 0) {
-                this.recomendacaoIndexAnimes = this.recomendacaoIndexAnimes - 6
-            } else {
-                this.recomendacaoIndexAnimes = 0
+        passarMiniCards(tipo) {
+            if (this.posiçãoInicial == -93) return
+            let proximo = document.getElementById(tipo + '-carrosel')
+            let newPosition = this.posiçãoInicial - 15.5
+            this.posiçãoInicial = newPosition
+            proximo.style.left = newPosition + 'vw'
 
-            }
         },
-
+        voltarMiniCards(tipo) {
+            if (this.posiçãoInicial == 0) return
+            let anterior = document.getElementById( tipo + '-carrosel')
+            let newPosition = this.posiçãoInicial + 15.5
+            this.posiçãoInicial = newPosition
+            anterior.style.left = newPosition + 'vw'
+        },
+        passarEmAlta(){
+            if (this.posiçãoInicial == -60) return
+            let proximo = document.getElementById('em-alta-carrosel')
+            let newPosition = this.posiçãoInicialEmAlta -30
+            this.posiçãoInicialEmAlta = newPosition
+            proximo.style.left = newPosition + 'vw'
+        },
+        voltarEmAlta(){
+            if (this.posiçãoInicialEmAlta == 0) return
+            let anterior = document.getElementById( 'em-alta-carrosel')
+            let newPosition = this.posiçãoInicialEmAlta + 30
+            this.posiçãoInicialEmAlta = newPosition
+            anterior.style.left = newPosition + 'vw'
+        }
     },
     created() {
         this.tokenAccess = localStorage.getItem("token")
@@ -361,7 +316,6 @@ export default {
                     this.$router.push('/login')
                     localStorage.removeItem('usuarioLogado')
                     localStorage.removeItem('token')
-                    
                 }
             })
         } else {
@@ -372,9 +326,20 @@ export default {
         this.listaSeries = this.$store.state.listaDeSeries
         this.listaFilmes = this.$store.state.listaDeFilmes
         this.listaEmAlta = this.$store.state.listaDeEmAlta
-        window.scrollTo(0, 0);
+        // window.scrollTo(0, 0);
+        // setInterval(() => {
+        //     if (this.pagina >= 3) {
+        //         this.pagina = 0
+        //         let proximo = document.getElementById('banner-container')
+        //         proximo.style.left = '0'
+        //     } else {
+        //         this.pagina++
+        //         let proximo = document.getElementById('banner-container')
+        //         let position = -97.5 * this.pagina
+        //         proximo.style.left = position + 'vw'
+        //     }
+        // }, 4000);
     }
-
 }
 </script>
 <style scoped>
@@ -389,12 +354,20 @@ export default {
 .grid {
     gap: 2vw;
     width: 95vw;
-    flex-wrap: nowrap;
     margin: 2vw 0;
-    align-items: center;
     position: relative;
     border-radius: 10px;
     box-shadow: 1.5vh 1.5vh 2vh black, -1.5vh -1.5vh 2vh #343434;
+    height: 70vh;
+    overflow: hidden;
+}
+
+#banner-container {
+    display: flex;
+    gap: 2.5vw;
+    position: absolute;
+    left: 0;
+    transition: left 1s ease-in-out;
 }
 
 .botao-volta,
@@ -406,7 +379,6 @@ export default {
     transition: 200ms ease-in-out 3s;
     opacity: 0;
     top: 45%;
-
 }
 
 .botao-volta {
@@ -490,55 +462,75 @@ export default {
     color: #f64348;
 }
 
-.conteiner-cards {
+.conteiner-cards,
+.conteiner-cards-em-alta {
     display: flex;
     color: #898989;
-    justify-content: center;
     align-items: center;
-    width: 100%;
-
+    position: relative;
 }
 
+.conteiner-cards-em-alta {
+    height: 75vh;
+    margin-bottom: 5vh;
+}
+
+.row, .row-em-alta {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+}
+.row {
+    height: 55vh;
+    width: 94vw;
+}
+.row-em-alta{
+    height: 80vh;
+    width: 90vw;
+}
+
+#serie-carrosel,
+#filme-carrosel,
+#anime-carrosel,
+#em-alta-carrosel {
+    display: flex;
+    align-items: center;
+    gap: 1.5vw;
+    padding: 3vh 0 0 1.2vw;
+    position: absolute;
+    transition: left 0.5s ease-in-out;
+    left: 0;
+}
+#em-alta-carrosel{
+    padding: 0 2vw 0 2vw;
+    gap: 5vw;
+}
 .card-mobile {
     display: none;
 }
 
-.fileira-cards {
-    width: 100%;
-    height: fit-content;
-    padding: 1.4vw 0 1.4vw 1.5vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1.6vw;
-    overflow: hidden;
-}
-
-
-.fileira-cards-em-alta {
-    width: 85vw;
-    height: fit-content;
-    padding-bottom: 2vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2vw;
-    overflow: hidden;
-}
-
-.seta {
-    font-size: 5vh;
+.seta-direita,
+.seta-esquerda {
+    font-size: 7vh;
     cursor: pointer;
     transition: 300ms ease-in-out;
-    margin: -10vh -2vh 0 -2vh;
+    position: absolute;
+    margin-top: -10vh;
 }
 
-.seta:hover {
+.seta-direita {
+    right: -2.5vw;
+}
+
+.seta-esquerda {
+    left: -2.5vw;
+}
+
+.seta-direita:hover,
+.seta-esquerda:hover {
     color: #e8e8e8;
     transition: 300ms;
 }
-
-
 
 @media screen and (max-width:1000px) {
 

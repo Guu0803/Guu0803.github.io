@@ -790,8 +790,6 @@ input[type='text'] {
     button{
         font-size: 0.8em;
     }
-    .pix{
-    }
     .pix div {
         font-size: 0.8em;
 

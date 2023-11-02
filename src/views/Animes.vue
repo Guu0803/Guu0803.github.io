@@ -216,9 +216,8 @@ export default {
 }
 
 .titulo-fileira-cards {
-    margin: 3vw 0 0 3vw;
+    margin-left:3vw;
 }
-
 .separacao {
     width: 97%;
     height: 1px;

@@ -135,9 +135,7 @@ export default {
             let endereço = "https://easy-password.up.railway.app/account/me/"
             let header = { authorization: "Bearer " + this.tokenAccess }
             let config = { headers: header }
-            axios.get(endereço, config).then(response => {
-                console.log(response)
-            }).catch(error => {
+            axios.get(endereço, config).catch(error => {
                 if (error) {
                     this.$router.push('/login')
                     localStorage.removeItem('usuarioLogado')
@@ -147,13 +145,11 @@ export default {
         } else {
             this.aviso = true
         }
-        
         this.listaSeries = this.$store.state.listaDeSeries
         this.listaAnimes = this.$store.state.listaDeAnimes
         this.listaFilmes = this.$store.state.listaDeFilmes
 
         this.filter(this.pegarTextoPesquisa)
-
     }
 }
 

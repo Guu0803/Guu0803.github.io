@@ -583,6 +583,8 @@ body {
   width: fit-content;
   text-decoration: none;
   font-weight: bold;
+  margin-left: -1vh;
+
 }
 
 .subtitulos-rodape:hover {
@@ -618,7 +620,6 @@ input {
 .nav-mobile {
   display: none;
 }
-
 
 
 

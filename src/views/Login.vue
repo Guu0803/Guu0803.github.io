@@ -135,9 +135,10 @@ export default {
                     this.inputPasswordVazio = false
                     this.loading = false
                 }).catch(error => {
-                    this.loading = false
-                    console.log(error)
-                    this.avisoErro = true
+                    if (error) {
+                        this.loading = false
+                        this.avisoErro = true
+                    }
                 })
             } else {
                 this.inputUsernameVazio = true
@@ -407,11 +408,12 @@ input:hover {
     text-align: center;
 }
 
-.aviso-de-erro, .aviso-de-erro2 {
+.aviso-de-erro,
+.aviso-de-erro2 {
     color: #f64348;
     font-size: 2vh;
     margin: -2vh 0 1vh 2vh;
-    
+
 }
 
 @media screen and (max-width:1000px) {
@@ -419,9 +421,11 @@ input:hover {
         font-size: 1.5em;
         margin-bottom: 3vh;
     }
-    .card-loading{
+
+    .card-loading {
         height: 140%;
     }
+
     .login {
         width: 80vw;
     }
@@ -448,7 +452,7 @@ input:hover {
         margin-bottom: 3vh;
         font-size: 0.8em;
         gap: 4vw;
-        width:70vw;
+        width: 70vw;
     }
 
     .checkbox {

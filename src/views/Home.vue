@@ -1,7 +1,7 @@
 <template>
     <div class="tela">
         <!-- Banner principal -->
-        <div class="grid">
+        <div class="grid" v-on:mouseover="pausarBanner()" v-on:mouseleave="playBanner()">
             <span class="material-icons botao-volta" v-on:click="passarAnterior()">
                 chevron_left
             </span>
@@ -90,7 +90,7 @@
             </span>
             <div class="row-em-alta">
                 <div id="em-alta-carrosel">
-                    <div v-for="destaques in listaEmAlta" :key="destaques.id" >
+                    <div v-for="destaques in listaEmAlta" :key="destaques.id">
                         <cards :nome="destaques.nome" :imagem="destaques.imagem" :nota="destaques.nota" :scale="true"
                             :categoria1="destaques.categoria1" :categoria2="destaques.categoria2"
                             :thumbnail="destaques.thumbnail" :categoria3="destaques.categoria3"
@@ -212,13 +212,10 @@ export default {
             listaFilmes: [],
             listaAnimes: [],
             listaEmAlta: [],
-            recomendacaoIndexSeries: 0,
-            recomendacaoIndexAnimes: 0,
-            recomendacaoIndexFilmes: 0,
-            recomendacaoIndexEmAlta: 0,
             aviso: false,
             posiçãoInicial: 0,
-            posiçãoInicialEmAlta:0
+            posiçãoInicialEmAlta: 0,
+            bannerAtivado: true
         }
     },
     computed: {
@@ -226,13 +223,13 @@ export default {
             return this.listaSeries.slice(0, 12)
         },
         recomendacaoListaAnimes() {
-            return this.listaAnimes.slice(0,12)
+            return this.listaAnimes.slice(0, 12)
         },
         recomendacaoListaFilmes() {
-            return this.listaFilmes.slice(0,12)
+            return this.listaFilmes.slice(0, 12)
         },
         recomendacaoListaEmAlta() {
-            return this.listaEmAlta.slice(0,12)
+            return this.listaEmAlta.slice(0, 12)
         }
     },
     methods: {
@@ -249,10 +246,15 @@ export default {
 
         },
         passarFrente() {
-            if (this.pagina >= 3) {
+            if (this.pagina >= 4) {
                 this.pagina = 0
                 let proximo = document.getElementById('banner-container')
+                proximo.style.transition = 'unset'
                 proximo.style.left = '0'
+                setTimeout(() => {
+                    proximo.style.transition = 'left 1s ease-in-out'
+                    this.passarFrente()
+                }, 100);
             } else {
                 this.pagina++
                 let proximo = document.getElementById('banner-container')
@@ -262,9 +264,14 @@ export default {
         },
         passarAnterior() {
             if (this.pagina <= 0) {
-                this.pagina = 3
+                this.pagina = 4
                 let anterior = document.getElementById('banner-container')
-                anterior.style.left = '-292.5vw'
+                anterior.style.transition = 'unset'
+                anterior.style.left = '-390vw'
+                setTimeout(() => {
+                    anterior.style.transition = 'left 1s ease-in-out'
+                    this.passarAnterior()
+                }, 100);
             } else {
                 this.pagina--
                 let anterior = document.getElementById('banner-container')
@@ -282,24 +289,49 @@ export default {
         },
         voltarMiniCards(tipo) {
             if (this.posiçãoInicial == 0) return
-            let anterior = document.getElementById( tipo + '-carrosel')
+            let anterior = document.getElementById(tipo + '-carrosel')
             let newPosition = this.posiçãoInicial + 15.5
             this.posiçãoInicial = newPosition
             anterior.style.left = newPosition + 'vw'
         },
-        passarEmAlta(){
+        passarEmAlta() {
             if (this.posiçãoInicial == -60) return
             let proximo = document.getElementById('em-alta-carrosel')
-            let newPosition = this.posiçãoInicialEmAlta -30
+            let newPosition = this.posiçãoInicialEmAlta - 30
             this.posiçãoInicialEmAlta = newPosition
             proximo.style.left = newPosition + 'vw'
         },
-        voltarEmAlta(){
+        voltarEmAlta() {
             if (this.posiçãoInicialEmAlta == 0) return
-            let anterior = document.getElementById( 'em-alta-carrosel')
+            let anterior = document.getElementById('em-alta-carrosel')
             let newPosition = this.posiçãoInicialEmAlta + 30
             this.posiçãoInicialEmAlta = newPosition
             anterior.style.left = newPosition + 'vw'
+        },
+        rodarBanner() {
+            setInterval(() => {
+                if(this.bannerAtivado == false) return
+                if (this.pagina >= 4) {
+                    this.pagina = 0
+                    let proximo = document.getElementById('banner-container')
+                    proximo.style.transition = 'unset'
+                    proximo.style.left = '0'
+                    setTimeout(() => {
+                        proximo.style.transition = 'left 1s ease-in-out'
+                    }, 100);
+                } else {
+                    this.pagina++
+                    let proximo = document.getElementById('banner-container')
+                    let position = -97.5 * this.pagina
+                    proximo.style.left = position + 'vw'
+                }
+            }, 4000);
+        },
+        pausarBanner(){
+            this.bannerAtivado =  false
+        },
+        playBanner(){
+            this.bannerAtivado =  true
         }
     },
     created() {
@@ -309,9 +341,7 @@ export default {
             let endereço = "https://easy-password.up.railway.app/account/me/"
             let header = { authorization: "Bearer " + this.tokenAccess }
             let config = { headers: header }
-            axios.get(endereço, config).then(response => {
-                console.log(response)
-            }).catch(error => {
+            axios.get(endereço, config).catch(error => {
                 if (error) {
                     this.$router.push('/login')
                     localStorage.removeItem('usuarioLogado')
@@ -321,24 +351,18 @@ export default {
         } else {
             this.aviso = true
         }
+
         this.listaBanners = this.$store.state.filmesBannerHome
         this.listaAnimes = this.$store.state.listaDeAnimes
         this.listaSeries = this.$store.state.listaDeSeries
         this.listaFilmes = this.$store.state.listaDeFilmes
         this.listaEmAlta = this.$store.state.listaDeEmAlta
-        // window.scrollTo(0, 0);
-        // setInterval(() => {
-        //     if (this.pagina >= 3) {
-        //         this.pagina = 0
-        //         let proximo = document.getElementById('banner-container')
-        //         proximo.style.left = '0'
-        //     } else {
-        //         this.pagina++
-        //         let proximo = document.getElementById('banner-container')
-        //         let position = -97.5 * this.pagina
-        //         proximo.style.left = position + 'vw'
-        //     }
-        // }, 4000);
+
+        window.scrollTo(0, 0);
+
+        this.listaBanners.push(this.listaBanners[0])
+
+        this.rodarBanner()
     }
 }
 </script>
@@ -475,16 +499,19 @@ export default {
     margin-bottom: 5vh;
 }
 
-.row, .row-em-alta {
+.row,
+.row-em-alta {
     position: relative;
     overflow: hidden;
     display: flex;
 }
+
 .row {
     height: 55vh;
     width: 94vw;
 }
-.row-em-alta{
+
+.row-em-alta {
     height: 80vh;
     width: 90vw;
 }
@@ -501,10 +528,12 @@ export default {
     transition: left 0.5s ease-in-out;
     left: 0;
 }
-#em-alta-carrosel{
+
+#em-alta-carrosel {
     padding: 0 2vw 0 2vw;
     gap: 5vw;
 }
+
 .card-mobile {
     display: none;
 }
@@ -536,6 +565,7 @@ export default {
 
     .grid {
         margin-top: 3vh;
+        height: 30vh;
     }
 
     .botao-volta,
@@ -560,16 +590,16 @@ export default {
         font-size: 1.3em;
     }
 
-    .fileira-cards {
-        height: fit-content;
+    .row {
+        height: 40vh;
         justify-content: unset;
         overflow-x: scroll;
         align-items: center;
     }
 
-    .fileira-cards-em-alta {
+    .row-em-alta {
         height: 55vh;
-        width: 100%;
+        width: 90vw;
         justify-content: unset;
         padding: 1.4vw 0 1.4vw 3vh;
         box-sizing: border-box;
@@ -577,15 +607,20 @@ export default {
         gap: 5vw;
     }
 
-    .fileira-cards-em-alta::-webkit-scrollbar {
+    .conteiner-cards-em-alta {
+        height: unset;
+    }
+
+    .row-em-alta::-webkit-scrollbar {
         height: 0;
     }
 
-    .fileira-cards::-webkit-scrollbar {
+    .row::-webkit-scrollbar {
         height: 0;
     }
 
-    .seta {
+    .seta-direita,
+    .seta-esquerda {
         display: none;
     }
 

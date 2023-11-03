@@ -4,6 +4,8 @@ Este é um projeto de streaming fictício desenvolvido em Vue.js que apresenta u
 
 ## Demonstração
 
+![spaceflix](https://github.com/Guu0803/Guu0803.github.io/assets/110205737/764a7626-6e36-4e42-9888-b06653d5db82)
+
 
 ## Funcionalidades
 

@@ -88,7 +88,6 @@
                 mergulhe em histórias envolventes e desfrute de momentos inesquecíveis de entretenimento.
             </div>
         </div>
-
     </div>
 </template>
 
@@ -137,11 +136,8 @@ export default {
     z-index: 1;
     max-width: 43vw;
     text-align: center;
-
 }
-
 .conteiner-titulo {
-    display: flex;
     color: #e8e8e8;
     font-size: 5vh;
     gap: 1vw;
@@ -190,14 +186,14 @@ button:hover {
     height: 37vw;
     background-size: cover;
     box-shadow: 60px 50px 40px #1f1f1f inset, -10px -10px 25px 25px #1f1f1f inset;
-    background-image: url("@/assets/banner-inicio.png");
+    background-image: url("https://www.otempo.com.br/image/contentid/policy:1.2867942:1683905044/image-The-Witcher-3-temporada-e-quando-tudo-muda-na-serie.jpg?f=3x2&w=1224");
     margin-left: -10vw;
 }
 .banner-secundario {
-    background-image: url("@/assets/banner2.png");
-    background-size: cover;
+    background-image: url("https://proxy.olhardigital.com.br/wp-content/uploads/2021/04/Demon-Slayer.png");
+    background-size: contain;
     width:57vw;
-    height: 65vh;
+    height: 60vh;
     margin-left: 4vh;
     box-shadow: 1vw 1vw 2vw 2vw #1f1f1f inset, -55px -50px 50px #1f1f1f inset;
 }

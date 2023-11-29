@@ -213,8 +213,10 @@ export default {
             listaAnimes: [],
             listaEmAlta: [],
             aviso: false,
-            posiçãoInicial: 0,
-            posiçãoInicialEmAlta: 0,
+            posicaoInicialFilme: 0,
+            posicaoIncialSerie: 0,
+            posicaoIncialAnime: 0,
+            posicaoIncialEmAlta: 0,
             bannerAtivado: true
         }
     },
@@ -280,37 +282,64 @@ export default {
             }
         },
         passarMiniCards(tipo) {
-            if (this.posiçãoInicial == -93) return
+            let posicaoInicial = 0
+            if (tipo == 'serie') {
+                posicaoInicial = this.posicaoIncialSerie
+            } else if (tipo == 'anime') {
+                posicaoInicial = this.posicaoIncialAnime
+            } else {
+                posicaoInicial = this.posicaoInicialFilme
+            }
+            if (posicaoInicial == -93) return
             let proximo = document.getElementById(tipo + '-carrosel')
-            let newPosition = this.posiçãoInicial - 15.5
-            this.posiçãoInicial = newPosition
+            let newPosition = posicaoInicial - 15.5
+            if (tipo == 'serie') {
+                this.posicaoIncialSerie = newPosition
+            } else if (tipo == 'anime') {
+                this.posicaoIncialAnime = newPosition
+            } else {
+                this.posicaoInicialFilme = newPosition
+            }
             proximo.style.left = newPosition + 'vw'
-
         },
         voltarMiniCards(tipo) {
-            if (this.posiçãoInicial == 0) return
+            let posicaoInicial = 0
+            if (tipo == 'serie') {
+                posicaoInicial = this.posicaoIncialSerie
+            } else if (tipo == 'anime') {
+                posicaoInicial = this.posicaoIncialAnime
+            } else {
+                posicaoInicial = this.posicaoInicialFilme
+            }
+            if (posicaoInicial == 0) return
             let anterior = document.getElementById(tipo + '-carrosel')
-            let newPosition = this.posiçãoInicial + 15.5
-            this.posiçãoInicial = newPosition
+            let newPosition = posicaoInicial + 15.5
+            if (tipo == 'serie') {
+                this.posicaoIncialSerie = newPosition
+            } else if (tipo == 'anime') {
+                this.posicaoIncialAnime = newPosition
+            } else {
+                this.posicaoInicialFilme = newPosition
+            }
             anterior.style.left = newPosition + 'vw'
         },
         passarEmAlta() {
-            if (this.posiçãoInicial == -60) return
+            if (this.posicaoIncialEmAlta == -60) return
             let proximo = document.getElementById('em-alta-carrosel')
-            let newPosition = this.posiçãoInicialEmAlta - 30
-            this.posiçãoInicialEmAlta = newPosition
+            let newPosition = this.posicaoIncialEmAlta - 30
+            this.posicaoIncialEmAlta = newPosition
             proximo.style.left = newPosition + 'vw'
         },
         voltarEmAlta() {
-            if (this.posiçãoInicialEmAlta == 0) return
+            if (this.posicaoIncialEmAlta == 0) return
             let anterior = document.getElementById('em-alta-carrosel')
-            let newPosition = this.posiçãoInicialEmAlta + 30
-            this.posiçãoInicialEmAlta = newPosition
+            let newPosition = this.posicaoIncialEmAlta + 30
+            this.posicaoIncialEmAlta = newPosition
             anterior.style.left = newPosition + 'vw'
         },
         rodarBanner() {
             setInterval(() => {
-                if(this.bannerAtivado == false) return
+                if (this.bannerAtivado == false) return
                 if (this.pagina >= 4) {
                     this.pagina = 0
                     let proximo = document.getElementById('banner-container')
@@ -327,11 +356,11 @@ export default {
                 }
             }, 4000);
         },
-        pausarBanner(){
-            this.bannerAtivado =  false
+        pausarBanner() {
+            this.bannerAtivado = false
         },
-        playBanner(){
-            this.bannerAtivado =  true
+        playBanner() {
+            this.bannerAtivado = true
         }
     },
     created() {
